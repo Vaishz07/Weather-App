@@ -1,0 +1,41 @@
+@import url('https://googleapis.com');
+
+/* Main canvas setup matching image background feel */
+.background-gradient {
+  background: linear-gradient(135deg, #5c7eea 0%, #764ba2 100%);
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+/* Glassmorphism card specifications */
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  width: 350px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Rounded search enclosure */
+.search-bar-container {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 30px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.search-bar-container input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.weather-icon {
+  width: 90px;
+  height: 90px;
+}
+
+/* Fine-tune layout border visibility */
+.border-white-20 {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
