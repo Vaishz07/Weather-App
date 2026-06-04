@@ -70,11 +70,11 @@ function App() {
     <div className="row">
       <div className="col-4 background-gradient d-flex justify-content-center align-items-center vh-100">
         <div className="glass-card developer-card text-light p-4">
-          <h3 className="Profile">Developer Profile :</h3>
+          <h2 className="Application">SkyPulse</h2>
+          <h4 className="Profile">Profile :</h4>
           <h4 className="Name">P Vaishnav</h4>
           <h5 className="College"> College: Kongunadu Arts and Science College, Coimbatore</h5>
           <h5 className="Dept"> Department: Bachelor of Computer Applications</h5>
-          <h5 className="Note">Your pocket-sized meteorologist..</h5>
         </div>
       </div>
     <div className="col-8 background-gradient d-flex justify-content-center align-items-center vh-100">
