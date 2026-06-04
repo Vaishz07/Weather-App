@@ -67,12 +67,21 @@ function App() {
 
 
   return (
-    <div className="background-gradient d-flex justify-content-center align-items-center vh-100">
+    <div className="row">
+      <div className="col-4 background-gradient d-flex justify-content-center align-items-center vh-100">
+        <div className="glass-card developer-card text-light p-4">
+          <h3 className="Profile">Developer Profile :</h3>
+          <h4 className="Name">P Vaishnav</h4>
+          <h5 className="College"> College: Kongunadu Arts and Science College, Coimbatore</h5>
+          <h5 className="Dept"> Department: Bachelor of Computer Applications</h5>
+          <h5 className="Note">Your pocket-sized meteorologist..</h5>
+        </div>
+      </div>
+    <div className="col-8 background-gradient d-flex justify-content-center align-items-center vh-100">
       <div className="glass-card text-center p-4">
         
         <form onSubmit={handleSearch} className="input-group mb-4 search-bar-container">
           <input 
-            type="text" 
             className="form-control bg-transparent border-0 text-dark shadow-none ps-3"
             placeholder="Enter City" 
             value={city} 
@@ -122,6 +131,7 @@ function App() {
           <p className="opacity-75 my-5"></p>
         )}
       </div>
+    </div>
     </div>
   );
 }

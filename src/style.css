@@ -1,13 +1,13 @@
 @import url('https://googleapis.com');
 
-/* Main canvas setup matching image background feel */
+
 .background-gradient {
   background: linear-gradient(135deg, #5c7eea 0%, #764ba2 100%);
   font-family: 'Poppins', sans-serif;
   color: white;
 }
 
-/* Glassmorphism card specifications */
+
 .glass-card {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
@@ -15,7 +15,51 @@
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 24px;
   width: 350px;
+  min-height: 420px;
+  padding: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.developer-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: left;
+  padding: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.developer-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.15rem;
+}
+
+.developer-name {
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin-bottom: 0.1rem;
+}
+
+.developer-detail,
+.developer-note {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.7;
+}
+
+.developer-detail {
+  margin-bottom: 0.25rem;
+}
+
+.developer-note {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.78);
+  padding-top: 0.2rem;
 }
 
 /* Rounded search enclosure */
