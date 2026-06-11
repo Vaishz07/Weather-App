@@ -22,7 +22,7 @@ function App() {
   const [error, setError] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
-  const apiKey = "1dc729a44fb9a80ff994b5b8268ac126";
+  const apiKey = "import.meta.env.VITE_OPENWEATHER_API_KEY";
 
   const getWeatherImage = (condition) => {
     const images = {
