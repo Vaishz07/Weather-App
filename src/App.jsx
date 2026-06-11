@@ -22,7 +22,7 @@ function App() {
   const [error, setError] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
-  const apiKey = "import.meta.env.VITE_OPENWEATHER_API_KEY";
+  const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
   const getWeatherImage = (condition) => {
     const images = {
@@ -64,7 +64,6 @@ function App() {
     setWeather(null);
     setError('');
 
-    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${suggestion.name},${suggestion.country}&units=metric&appid=${apiKey}`;
 
     try {
