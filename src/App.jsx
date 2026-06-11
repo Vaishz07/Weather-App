@@ -11,12 +11,18 @@ import windImg from "./assets/wind.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import "./style.css";
-
+import WeatherDisplay from "./components/WeatherDisplay";
+import SearchBar from "./components/SearchBar";
+import DeveloperCard from "./components/DeveloperCard";
+import ErrorDisplay from "./components/ErrorDisplay";
 function App() {
   
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+
+  const apiKey = "1dc729a44fb9a80ff994b5b8268ac126";
 
   const getWeatherImage = (condition) => {
     const images = {
@@ -32,13 +38,62 @@ function App() {
     return images[condition] || clearimg;
   };
 
+  const handleCityChange = async (e) => {
+    const value = e.target.value;
+    setCity(value);
+
+    if (!value.trim() || value.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    try {
+      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=8&appid=${apiKey}`;
+      const res = await fetch(geoUrl);
+      const data = await res.json();
+      setSuggestions(data || []);
+    } catch (err) {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = async (suggestion) => {
+    const fullCity = `${suggestion.name}${suggestion.state ? `, ${suggestion.state}` : ''}, ${suggestion.country}`;
+    setCity(fullCity);
+    setSuggestions([]);
+    setWeather(null);
+    setError('');
+
+    const apiKey = "1dc729a44fb9a80ff994b5b8268ac126";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${suggestion.name},${suggestion.country}&units=metric&appid=${apiKey}`;
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("City not found. Try again!");
+      const weatherData = await res.json();
+      
+      setWeather({
+        name: weatherData.name,
+        temp: Math.round(weatherData.main.temp),
+        feelsLike: Math.round(weatherData.main.feels_like),
+        humidity: weatherData.main.humidity,
+        wind: weatherData.wind.speed,
+        condition: weatherData.weather[0].main.toLowerCase(), 
+        icon: weatherData.weather[0].icon
+      });
+
+      setCity('');
+      
+    } catch (err) {
+      setError(err.message); 
+      setWeather(null); 
+    }
+  };
+
   const handleSearch = async (e) => {
     e.preventDefault(); 
     
     if (!city.trim()) return;
-
-    const apiKey = "1dc729a44fb9a80ff994b5b8268ac126";
-
 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
@@ -50,6 +105,7 @@ function App() {
       setWeather({
         name: data.name,
         temp: Math.round(data.main.temp),
+        feelsLike: Math.round(data.main.feels_like),
         humidity: data.main.humidity,
         wind: data.wind.speed,
         condition: data.weather[0].main.toLowerCase(), 
@@ -58,6 +114,7 @@ function App() {
 
       setError('');
       setCity(''); 
+      setSuggestions([]);
       
     } catch (err) {
       setError(err.message); 
@@ -68,71 +125,27 @@ function App() {
 
   return (
     <div className="row">
-      <div className="col-4 background-gradient d-flex justify-content-center align-items-center vh-100">
-        <div className="glass-card developer-card text-light p-4">
-          <h2 className="Application">SkyPulse</h2>
-          <h4 className="Profile">Profile :</h4>
-          <h4 className="Name">P Vaishnav</h4>
-          <h5 className="College"> College: Kongunadu Arts and Science College, Coimbatore</h5>
-          <h5 className="Dept"> Department: Bachelor of Computer Applications</h5>
-        </div>
-      </div>
+      <DeveloperCard />
+
     <div className="col-8 background-gradient d-flex justify-content-center align-items-center vh-100">
       <div className="glass-card text-center p-4">
-        
-        <form onSubmit={handleSearch} className="input-group mb-4 search-bar-container">
-          <input 
-            className="form-control bg-transparent border-0 text-dark shadow-none ps-3"
-            placeholder="Enter City" 
-            value={city} 
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <button className="btn text-white border-0 p-0" type="submit">
-            <img src={searchImg} alt="Search" className="icon-small" />
-          </button>
-        </form>
-         
-{error && (
-  <div className="text-danger small fw-bold mb-3 opacity-90 animate-fade">
-    ⚠️ {error}
-  </div>
-)}
-
-        {weather ? (
-          <div>
-            <h2 className="fs-3 fw-normal mb-1">{weather.name}</h2> 
-            <img 
-              src={getWeatherImage(weather.condition)} 
-              alt={weather.condition} 
-              className="weather-icon my-2"
-            />
-            <h1 className="display-1 fw-bold m-0">{weather.temp}°</h1>
-            <p className="fs-5 weather-condition mb-4">{weather.condition}</p>
-
-            <div className="row pt-3">
-              <div className="col-6 d-flex align-items-center justify-content-center gap-2">
-                <img src={humidityImg} alt="Humidity" className="icon-small stat-icon" />
-                <div className="text-start">
-                    <span className="d-block fw-bold fs-5 stat-value">{weather.humidity} %</span>
-                    <span className="small opacity-75 stat-label text-light">Humidity</span>
-                </div>
-              </div>
-              
-              <div className="col-6 d-flex align-items-center justify-content-center gap-2">
-                <img src={windImg} alt="Wind" className="icon-small stat-icon" />
-                <div className="text-start">
-                    <span className="d-block fw-bold fs-5 stat-value">{weather.wind} km/h </span>
-                    <span className="small opacity-75 stat-label text-light">Wind Speed</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <p className="opacity-75 my-5"></p>
-        )}
+        <SearchBar 
+        city={city}
+        handleCityChange={handleCityChange}
+        handleSuggestionClick={handleSuggestionClick}
+        suggestions={suggestions}
+        handleSearch={handleSearch}
+        searchImg={searchImg}/>
+        <ErrorDisplay error={error} />
+        <WeatherDisplay 
+        weather={weather}
+        getWeatherImage={getWeatherImage}
+        humidityImg={humidityImg}
+        windImg={windImg}
+        />
       </div>
-    </div>
-    </div>
+      </div>
+      </div>
   );
 }
 
