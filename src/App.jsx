@@ -64,7 +64,7 @@ function App() {
     setWeather(null);
     setError('');
 
-    const apiKey = "1dc729a44fb9a80ff994b5b8268ac126";
+    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${suggestion.name},${suggestion.country}&units=metric&appid=${apiKey}`;
 
     try {
