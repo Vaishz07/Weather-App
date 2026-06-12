@@ -1,40 +1,52 @@
-function WeatherDisplay({ weather, getWeatherImage, humidityImg, windImg }) {
-  return (
-    <>
-      {weather ? (
-        <div>
-          <h2 className="fs-3 fw-normal mb-1">{weather.name}</h2> 
-          <img 
-            src={getWeatherImage(weather.condition)} 
-            alt={weather.condition} 
-            className="weather-icon my-2"
-          />
-          <h1 className="display-1 fw-bold m-0 mb-2 text-white">{weather.temp}°</h1>
-          <p className="fs-4 fw-bold text-white mb-3">Feels like {weather.feelsLike}°</p>
-          <p className="fs-5 weather-condition mb-4">{weather.condition}</p>
+function WeatherDisplay({ weather, getWeatherImage, humidityImg, windImg, sunriseImg, sunsetImg, pressureImg }) {
+  if (!weather) return (
+    <p className="opacity-75 my-5 text-center">Search for a city to see the weather</p>
+  );
 
-          <div className="row pt-3">
-            <div className="col-6 d-flex align-items-center justify-content-center gap-2">
-              <img src={humidityImg} alt="Humidity" className="icon-small stat-icon" />
-              <div className="text-start">
-                  <span className="d-block fw-bold fs-5 stat-value">{weather.humidity} %</span>
-                  <span className="small opacity-75 stat-label text-light">Humidity</span>
-              </div>
-            </div>
-            
-            <div className="col-6 d-flex align-items-center justify-content-center gap-2">
-              <img src={windImg} alt="Wind" className="icon-small stat-icon" />
-              <div className="text-start">
-                  <span className="d-block fw-bold fs-5 stat-value">{weather.wind} km/h </span>
-                  <span className="small opacity-75 stat-label text-light">Wind Speed</span>
-              </div>
-            </div>
+  const stats = [
+    { img: sunriseImg,  alt: "Sunrise",  value: weather.sunrise,        label: "Sunrise" },
+    { img: sunsetImg,   alt: "Sunset",   value: weather.sunset,         label: "Sunset" },
+    { img: humidityImg, alt: "Humidity", value: `${weather.humidity}%`, label: "Humidity" },
+    { img: windImg,     alt: "Wind",     value: `${weather.wind} km/h`, label: "Wind Speed" },
+  ];
+
+  return (
+    <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 mt-3 px-md-2">
+      {/* Left — City, temp, condition */}
+      <div className="text-start d-flex flex-column" style={{ flex: 1 }}>
+        <h1 className="fw-bold mb-0" style={{ fontSize: "3rem" }}>{weather.name}</h1>
+        <p className="opacity-75 mb-3" style={{ fontSize: "0.88rem" }}>{weather.dateTime}</p>
+
+        <div className="d-flex align-items-center gap-2 mb-3">
+          <img src={getWeatherImage(weather.condition)} alt={weather.condition} className="weather-icon-lg m-0" />
+          <h1 className="temp-display m-0">{weather.temp}°</h1>
+        </div>
+
+        <div className="feels-like-pill shadow-sm align-self-start">
+          <span className="opacity-75 me-2">🌡️</span> Feels like {weather.feelsLike}°
+        </div>
+      </div>
+
+      {/* Right — Stats grid */}
+      <div className="stats-grid">
+        {stats.map(({ img, alt, value, label }) => (
+          <div key={label} className="stat-card">
+            {img && <img src={img} alt={alt} className="stat-icon mb-1" />}
+            <p className="stat-value">{value}</p>
+            <span className="stat-label">{label}</span>
+          </div>
+        ))}
+
+        <div className="stat-card pressure-card d-flex flex-row align-items-center justify-content-center gap-3">
+          {pressureImg && <img src={pressureImg} alt="Pressure" className="stat-icon" />}
+          <div className="text-start">
+            <p className="stat-value mb-0">{weather.pressure} hPa</p>
+            <span className="stat-label">Pressure</span>
           </div>
         </div>
-      ) : (
-        <p className="opacity-75 my-5"></p>
-      )}
-    </>
+      </div>
+
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@ function SearchBar({ city, handleCityChange, handleSuggestionClick, suggestions,
   return (
     <form onSubmit={handleSearch} className="input-group mb-4 search-bar-container">
       <input 
-        className="form-control bg-transparent border-0 text-dark shadow-none ps-3"
+        className="form-control bg-transparent border-0 text-white shadow-none ps-3"
         placeholder="Enter City" 
         value={city} 
         onChange={handleCityChange}

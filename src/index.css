@@ -14,7 +14,7 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 24px;
-  width: 350px;
+  width: min(90vw, 900px);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -38,4 +38,38 @@
 /* Fine-tune layout border visibility */
 .border-white-20 {
   border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.stat-card h6 {
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-weight: 700;
+  margin: 0;
+}
+
+.feels-like-pill {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  margin-top: 15px;
+}
+
+.temp-display {
+    font-size: 7rem;
+    font-weight: 700;
+}
+
+.pressure-card {
+    padding: 12px 20px;
 }
