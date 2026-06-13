@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 /* ─── Base ─────────────────────────────────────────── */
 .background-gradient {
@@ -14,10 +14,10 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 24px;
-  padding: 1.5rem;
   width: 100%;
+  padding: 1.5rem;
   box-sizing: border-box;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
 .developer-card {
@@ -67,7 +67,7 @@
   background: rgba(255, 255, 255, 0.2);
   border-radius: 30px !important;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 40%;
+  width: 55%;  /* was 60% */
   overflow: visible;
 }
 
@@ -141,16 +141,22 @@
 .suggestions-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.5); }
 
 /* ─── Weather Display ───────────────────────────────── */
-.weather-icon  { width: 80px !important; height: 80px !important; object-fit: contain; }
+.weather-icon-lg {
+  width: 110px !important;
+  height: 110px !important;
+  object-fit: contain;
+}
+
 .stat-icon     { width: 28px !important; height: 28px !important; object-fit: contain; }
 .icon-small    { width: 28px; height: 28px; }
 .sun-icon      { width: 38px !important; height: 38px !important; }
 
 .temp-display {
-  font-size: 4.5rem;  /* change back from 5.5rem */
+  font-size: 4.5rem;
   font-weight: 700;
   line-height: 1;
 }
+
 .feels-like-pill {
   display: inline-flex;
   align-items: center;
@@ -165,18 +171,26 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   flex-shrink: 0;
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.08);        /* less white, feels deeper */
-  border: 1px solid rgba(255, 255, 255, 0.06);  /* subtler border */
-  border-radius: 16px;                           /* tighter corners */
-  padding: 14px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 10px 14px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 4px;
+  text-align: center;
+  white-space: nowrap;  /* aspect-ratio removed */
 }
 
 .stat-card h6 { opacity: 0.8; margin-bottom: 10px; }
@@ -188,26 +202,17 @@
   padding: 16px !important;
 }
 
-.stat-value {
-  font-size: 1.05rem;
-  font-weight: 700;                              /* bolder like the target */
-}
+.stat-value { font-size: 1rem; font-weight: 700; margin: 0; color: #fff; }
 .stat-label { font-size: 0.75rem; font-weight: 400; opacity: 0.75; color: #fff; margin: 0; }
 
 .border-white-20   { border-color: rgba(255, 255, 255, 0.2) !important; }
 .weather-condition { text-transform: capitalize; }
 
-/* ─── Weather Icon (larger in main display) ─────────── */
-.weather-icon-lg {
-  width: 110px !important;
-  height: 110px !important;
-  object-fit: contain;
-}
-
 /* ─── Forecast Section ──────────────────────────────── */
 .forecast-section {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding-top: 1.25rem;
+  margin-top: 0.75rem;
 }
 
 .forecast-title {
@@ -295,13 +300,7 @@
   gap: 0.5rem;
 }
 
-.forecast-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
+.forecast-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .forecast-stat-icon  { font-size: 1.3rem; }
 .forecast-stat-label { font-size: 0.72rem; opacity: 0.6; }
 .forecast-stat-value { font-size: 1rem; font-weight: 700; }

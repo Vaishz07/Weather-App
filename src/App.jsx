@@ -84,16 +84,18 @@ function App() {
   const [error, setError] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
-  const handleCityChange = async (e) => {
-    const value = e.target.value;
-    setCity(value);
-    if (!value.trim() || value.length < 2) { setSuggestions([]); return; }
-    try {
-      const res = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=8&appid=${apiKey}`);
-      const data = await res.json();
-      setSuggestions(data || []);
-    } catch { setSuggestions([]); }
-  };
+ const handleCityChange = async (e) => {
+  const value = e.target.value;
+  setCity(value);
+
+  if (!value.trim() || value.length < 1) { setSuggestions([]); return; } // ← was < 2
+
+  try {
+    const res = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=8&appid=${apiKey}`);
+    const data = await res.json();
+    setSuggestions(data || []);
+  } catch { setSuggestions([]); }
+};
 
   const fetchWeatherAndForecast = async (cityName, countryCode) => {
     const query = countryCode ? `${cityName},${countryCode}` : cityName;

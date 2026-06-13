@@ -11,13 +11,14 @@ function WeatherDisplay({ weather, getWeatherImage, humidityImg, windImg, sunris
   ];
 
   return (
-    <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 mt-3 px-md-2">
+    <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 mt-3 px-md-3">
+
       {/* Left — City, temp, condition */}
       <div className="text-start d-flex flex-column" style={{ flex: 1 }}>
-        <h1 className="fw-bold mb-0" style={{ fontSize: "3rem" }}>{weather.name}</h1>
+        <h1 className="fw-bold mb-0" style={{ fontSize: "2.8rem" }}>{weather.name}</h1>
         <p className="opacity-75 mb-3" style={{ fontSize: "0.88rem" }}>{weather.dateTime}</p>
 
-        <div className="d-flex align-items-center gap-2 mb-3">
+        <div className="d-flex align-items-center gap-3 mb-3">
           <img src={getWeatherImage(weather.condition)} alt={weather.condition} className="weather-icon-lg m-0" />
           <h1 className="temp-display m-0">{weather.temp}°</h1>
         </div>
