@@ -120,7 +120,7 @@ function App() {
       setWeather(buildWeather(weatherData));
       setForecast(buildForecast(forecastData.list));
       setCity('');
-    } catch (err) { setError(err.message); setWeather(null); }
+    } catch (err) { setError(err.message); setWeather(null); setForecast([]); }
   };
 
   const handleSearch = async (e) => {
@@ -133,7 +133,7 @@ function App() {
       setError('');
       setCity('');
       setSuggestions([]);
-    } catch (err) { setError(err.message); setWeather(null); }
+    } catch (err) { setError(err.message); setWeather(null);  setForecast([]); }
   };
 
   return (
